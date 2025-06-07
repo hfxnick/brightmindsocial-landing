@@ -657,6 +657,57 @@
                 container.classList.add('opacity-0');
             }, 1800);
         }
+        function animatePrice(element, start, end, duration, currency, suffix) {
+            const startTime = performance.now();
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const value = Math.round(start + (end - start) * progress);
+                element.innerHTML = `${currency}${value}<span class="text-2xl font-semibold">${suffix}</span>`;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.innerHTML = `${currency}${end}<span class="text-2xl font-semibold">${suffix}</span>`;
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        function getPriceNumber(text) {
+            const match = text.match(/\$([\d]+)/);
+            return match ? parseInt(match[1], 10) : 0;
+        }
+
+        function updatePricesAnimated(toAnnual) {
+            const pricePairs = [
+                { monthly: 35, annual: 349 },
+                { monthly: 79, annual: 789 },
+                { monthly: 159, annual: 1589 }
+            ];
+            const priceEls = document.querySelectorAll('.price-display');
+            priceEls.forEach((display, i) => {
+                const monthlyEl = display.querySelector('.monthly-price-display .text-5xl');
+                const annualEl = display.querySelector('.annual-price-display .text-5xl');
+                if (!monthlyEl || !annualEl) return;
+                // Always show both for animation
+                monthlyEl.parentElement.parentElement.classList.remove('hidden');
+                annualEl.parentElement.parentElement.classList.remove('hidden');
+                const fromEl = toAnnual ? monthlyEl : annualEl;
+                const toEl = toAnnual ? annualEl : monthlyEl;
+                const fromVal = getPriceNumber(fromEl.textContent);
+                const toVal = getPriceNumber(toEl.textContent);
+                // Animate the TO element from the FROM value to the TO value
+                animatePrice(toEl, fromVal, toVal, 500, '$', ' CAD');
+                // Ensure both are visible during animation
+                fromEl.parentElement.parentElement.classList.remove('hidden');
+                toEl.parentElement.parentElement.classList.remove('hidden');
+                setTimeout(() => {
+                    fromEl.parentElement.parentElement.classList.add('hidden');
+                    toEl.parentElement.parentElement.classList.remove('hidden');
+                }, 500);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const monthlyToggle = document.getElementById('monthly-toggle');
             const annualToggle = document.getElementById('annual-toggle');
@@ -672,6 +723,7 @@
                 annualToggle.classList.remove('active');
                 if (monthlyIndicator) monthlyIndicator.classList.remove('opacity-0');
                 if (annualIndicator) annualIndicator.classList.add('opacity-0');
+                updatePricesAnimated(false);
             }
 
             function showAnnualPrices() {
@@ -681,6 +733,7 @@
                 monthlyToggle.classList.remove('active');
                 if (monthlyIndicator) monthlyIndicator.classList.add('opacity-0');
                 if (annualIndicator) annualIndicator.classList.remove('opacity-0');
+                updatePricesAnimated(true);
             }
 
             // Initial state: show monthly prices
