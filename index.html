@@ -150,6 +150,67 @@
             pointer-events: none;
             will-change: transform, opacity;
         }
+
+        /* Floating emoji animations */
+        @keyframes bounce-slow {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-18px);
+            }
+        }
+
+        .animate-bounce-slow {
+            animation: bounce-slow 2.8s infinite cubic-bezier(.4, 2, .6, 1);
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0) rotate(-8deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(8deg);
+            }
+        }
+
+        .animate-float {
+            animation: float 3.2s infinite ease-in-out;
+        }
+
+        @keyframes float2 {
+            0%,
+            100% {
+                transform: translateY(0) rotate(6deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(-6deg);
+            }
+        }
+
+        .animate-float2 {
+            animation: float2 2.7s infinite ease-in-out;
+        }
+
+        @keyframes float3 {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(12deg);
+            }
+        }
+
+        .animate-float3 {
+            animation: float3 3.5s infinite ease-in-out;
+        }
     </style>
 </head>
 
@@ -206,24 +267,43 @@
         <a href="#pricing" class="block bg-brand-primary text-brand-black px-6 py-2 rounded-full btn-raised-hover" onclick="closeMobileMenu()">Start 14-Day Free Trial</a>
     </div>
 
-    <section class="bg-brand-primary text-brand-dark py-20 md:py-32">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                One Platform to Master Your Social Media: Schedule, Analyze, Grow.
-            </h1>
-            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">
-                Consolidate all your social media accounts. Plan and schedule posts effortlessly. Get powerful insights
-                to measure your impact and drive real business growth.
-            </p>
-            <a href="#pricing"
-                class="group inline-block px-10 py-4 bg-brand-white text-brand-dark font-bold text-xl rounded-full shadow-lg btn-raised-hover">
-                <span class="inline-flex items-center">
-                    Start Your 14-Day Free Trial
-                    <span
-                        class="ml-3 text-2xl transition-transform duration-200 ease-in-out group-hover:translate-x-1">→</span>
-                </span>
-            </a>
+    <section class="bg-brand-dark text-brand-white py-20 md:py-32 relative overflow-hidden">
+        <div class="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-0">
+            <div class="w-full md:w-1/2 text-center md:text-left z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                    One Platform to Master Your Social Media: Schedule, Analyze, Grow.
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto md:mx-0">
+                    Consolidate all your social media accounts. Plan and schedule posts effortlessly. Get powerful insights
+                    to measure your impact and drive real business growth.
+                </p>
+                <a href="#pricing"
+                    class="group inline-block px-10 py-4 bg-brand-white text-brand-dark font-bold text-xl rounded-full shadow-lg btn-raised-hover">
+                    <span class="inline-flex items-center">
+                        Start Your 14-Day Free Trial
+                        <span class="ml-3 text-2xl transition-transform duration-200 ease-in-out group-hover:translate-x-1">→</span>
+                    </span>
+                </a>
+            </div>
+            <div class="w-full md:w-1/2 flex flex-col items-center relative z-10 mb-10 md:mb-0">
+                <!-- Video demo area -->
+                <div class="relative w-[340px] h-[220px] md:w-[480px] md:h-[300px] rounded-2xl shadow-2xl overflow-hidden border-4 border-brand-dark bg-white flex items-center justify-center">
+                    <video 
+                        src="assets/brightmind-social_video.mp4" 
+                        autoplay 
+                        loop 
+                        muted 
+                        playsinline 
+                        class="w-full h-full object-cover"
+                        poster="https://via.placeholder.com/480x300?text=Demo+Loading"
+                    ></video>
+                </div>
+                <p class="mt-4 text-brand-white text-lg font-medium hidden md:block">See Brightmind Social in action</p>
+            </div>
         </div>
+        <!-- Subtle animated background shapes -->
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-brand-white rounded-full opacity-10 blur-2xl z-0"></div>
+        <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-brand-light-bg rounded-full opacity-10 blur-2xl z-0"></div>
     </section>
 
     <section id="features" class="py-16 bg-brand-white">
