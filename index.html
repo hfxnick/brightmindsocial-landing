@@ -135,6 +135,21 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* --- New Logo Animation Styles --- */
+        #logo-anim-icons {
+            width: 120px;
+            height: 60px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .logo-anim-icon {
+            filter: drop-shadow(0 2px 6px rgba(18, 23, 43, 0.10));
+            user-select: none;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
     </style>
 </head>
 
@@ -142,9 +157,11 @@
 
     <header class="bg-brand-white shadow-sm">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div>
-                <a href="#" class="text-2xl font-bold text-brand-dark"> Brightmind Social
-                </a>
+            <div class="relative flex items-center gap-2">
+                <img src="Brightmind-Social-Logo.png" alt="Brightmind Social Logo" class="h-14 w-auto z-10"
+                    id="logo-area" style="cursor:pointer;" />
+                <!-- Animated icons container: now positioned to the right of the logo and vertically centered in the nav -->
+                <div id="logo-anim-icons" class="pointer-events-none flex gap-2 opacity-0 transition-opacity duration-500 ml-2 relative top-1 left-0" style="align-items: center; top: 6px;"></div>
             </div>
             <div class="hidden md:flex space-x-6 items-center">
                 <a href="#features"
@@ -391,7 +408,8 @@
                     </a>
                 </div>
 
-                <div class="bg-brand-white p-8 rounded-lg shadow-xl flex flex-col justify-between animate-on-scroll">
+                <div
+                    class="bg-brand-white p-8 rounded-lg shadow-xl flex flex-col justify-between animate-on-scroll">
                     <div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">Professional</h3>
                         <p class="text-gray-600 mb-6">Master Your Social Strategy, Scale with Confidence</p>
@@ -506,20 +524,138 @@
         <div class="container mx-auto px-4 text-center text-sm">
             <p>&copy; 2025 Brightmind Social. All rights reserved. <br> Made in Canada 🍁</p>
             <div class="mt-4 space-x-4">
-                <a href="https://brightminddigital.ca" class="hover:text-white" target="_blank"
-                    rel="noopener noreferrer">Brightmind Digital</a>
-                <a href="#" class="hover:text-white">Privacy Policy</a>
-                <a href="#" class="hover:text-white">Terms of Service</a>
-                <a href="https://brightminddigital.ca/contact-us/" class="hover:text-white" target="_blank"
-                    rel="noopener noreferrer">Contact Us</a>
+                <a href="#" class="hover:text-white" onclick="openModal('privacy')">Privacy Policy</a>
+                <a href="#" class="hover:text-white" onclick="openModal('terms')">Terms of Service</a>
+                <a href="https://brightminddigital.ca" class="hover:text-white" target="_blank" rel="noopener noreferrer">Brightmind Digital</a>
+                <a href="https://brightminddigital.ca/contact-us/" class="hover:text-white" target="_blank" rel="noopener noreferrer">Contact Us</a>
             </div>
         </div>
     </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-8 relative">
+            <button onclick="closeModal('privacy')" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            <h2 class="text-2xl font-bold mb-4 text-brand-dark">Privacy Policy</h2>
+            <div class="text-gray-700 text-sm max-h-[60vh] overflow-y-auto text-left">
+                <p class="mb-2">Brightmind Social ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform and services.</p>
+                <h3 class="font-semibold mt-4 mb-1">Information We Collect</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>Account information (name, email, business details)</li>
+                    <li>Social media account connections and content you schedule or publish</li>
+                    <li>Usage data and analytics about your interactions with our platform</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">How We Use Your Information</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>To provide, operate, and maintain our services</li>
+                    <li>To communicate with you about your account or service updates</li>
+                    <li>To improve our platform and develop new features</li>
+                    <li>To comply with legal obligations</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">Data Sharing & Security</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>We do not sell your personal information.</li>
+                    <li>We may share data with trusted service providers for essential operations (e.g., cloud hosting, analytics) under strict confidentiality agreements.</li>
+                    <li>We implement industry-standard security measures to protect your data.</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">Your Rights & Choices</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>You may access, update, or delete your account information at any time.</li>
+                    <li>You may disconnect your social media accounts at your discretion.</li>
+                    <li>Contact us for any privacy-related questions: <a href="mailto:hello@brightminddigital.ca" class="text-brand-primary underline">hello@brightminddigital.ca</a></li>
+                </ul>
+                <p class="mt-4">By using Brightmind Social, you consent to this Privacy Policy. We may update this policy from time to time. Significant changes will be communicated via email or platform notification.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="terms-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-8 relative">
+            <button onclick="closeModal('terms')" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            <h2 class="text-2xl font-bold mb-4 text-brand-dark">Terms of Service</h2>
+            <div class="text-gray-700 text-sm max-h-[60vh] overflow-y-auto text-left">
+                <p class="mb-2">Welcome to Brightmind Social! By using our platform, you agree to the following terms and conditions. Please read them carefully.</p>
+                <h3 class="font-semibold mt-4 mb-1">1. Account Registration</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>You must provide accurate and complete information when creating your account.</li>
+                    <li>You are responsible for maintaining the security of your account and passwords.</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">2. Use of Service</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>You may use Brightmind Social to manage, schedule, and analyze your social media content for your business or organization.</li>
+                    <li>You agree not to use the service for unlawful, harmful, or abusive purposes.</li>
+                    <li>You are responsible for the content you post and must comply with the terms of your connected social media platforms.</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">3. Subscription & Billing</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>Subscription fees are billed in advance and are non-refundable except as required by law.</li>
+                    <li>You may cancel your subscription at any time; access will continue until the end of your billing period.</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">4. Service Availability</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>We strive to provide reliable service but do not guarantee uninterrupted or error-free operation.</li>
+                    <li>We may update, modify, or discontinue features at any time with notice.</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">5. Limitation of Liability</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>Brightmind Social is not liable for any indirect, incidental, or consequential damages arising from your use of the service.</li>
+                    <li>Our total liability is limited to the amount paid for your current subscription period.</li>
+                </ul>
+                <h3 class="font-semibold mt-4 mb-1">6. Changes to Terms</h3>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>We may update these terms from time to time. Continued use of the service constitutes acceptance of the new terms.</li>
+                </ul>
+                <p class="mt-4">If you have questions about these terms, contact us at <a href="mailto:hello@brightminddigital.ca" class="text-brand-primary underline">hello@brightminddigital.ca</a>.</p>
+            </div>
+        </div>
+    </div>
 
     <script>
         function closeMobileMenu() {
             document.getElementById('mobile-menu').classList.remove('opacity-100');
             document.getElementById('mobile-menu').classList.add('opacity-0', 'pointer-events-none');
+        }
+        // --- Social animation logic ---
+        function spawnLogoIcons(trigger) {
+            const icons = [
+                '<span class="logo-anim-icon">👍</span>',
+                '<span class="logo-anim-icon">❤️</span>',
+                '<span class="logo-anim-icon">👏</span>',
+                '<span class="logo-anim-icon">✨</span>'
+            ];
+            const container = document.getElementById('logo-anim-icons');
+            if (!container) return;
+            container.innerHTML = '';
+            // Randomly pick 3 icons and randomize their order
+            const shuffled = icons.sort(() => 0.5 - Math.random()).slice(0, 3);
+            shuffled.forEach((icon, i) => {
+                const el = document.createElement('span');
+                el.innerHTML = icon;
+                el.className = 'logo-anim-icon';
+                el.style.position = 'relative'; // No absolute positioning
+                el.style.left = '0';
+                el.style.top = '0';
+                el.style.fontSize = '1.5rem';
+                el.style.opacity = '0';
+                el.style.transform = `scale(0.7) translateY(10px)`;
+                el.style.transition = 'all 0.7s cubic-bezier(.4,2,.6,1)';
+                container.appendChild(el);
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = `scale(1.2) translateY(-10px)`;
+                }, 50 + i * 120);
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.transform = `scale(0.7) translateY(-30px)`;
+                }, 1200 + i * 100);
+            });
+            container.classList.remove('opacity-0');
+            container.classList.add('opacity-100');
+            setTimeout(() => {
+                container.classList.remove('opacity-100');
+                container.classList.add('opacity-0');
+            }, 1800);
         }
         document.addEventListener('DOMContentLoaded', function () {
             const monthlyToggle = document.getElementById('monthly-toggle');
@@ -589,7 +725,32 @@
                     }
                 });
             }
+
+            // Social animation on load
+            setTimeout(() => spawnLogoIcons('load'), 400);
+            // Social animation on logo hover
+            const logo = document.getElementById('logo-area');
+            if (logo) {
+                logo.addEventListener('mouseenter', () => spawnLogoIcons('hover'));
+            }
         });
+
+        function openModal(type) {
+            if (type === 'privacy') {
+                document.getElementById('privacy-modal').classList.remove('hidden');
+            } else if (type === 'terms') {
+                document.getElementById('terms-modal').classList.remove('hidden');
+            }
+            document.body.classList.add('overflow-hidden');
+        }
+        function closeModal(type) {
+            if (type === 'privacy') {
+                document.getElementById('privacy-modal').classList.add('hidden');
+            } else if (type === 'terms') {
+                document.getElementById('terms-modal').classList.add('hidden');
+            }
+            document.body.classList.remove('overflow-hidden');
+        }
     </script>
 
 </body>
