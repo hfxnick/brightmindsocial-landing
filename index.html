@@ -153,10 +153,10 @@
                     class="text-gray-600 hover:text-brand-dark transition duration-300 ease-in-out">Pricing</a> <a
                     href="#testimonials"
                     class="text-gray-600 hover:text-brand-dark transition duration-300 ease-in-out">Testimonials</a> <a
-                    href="#"
+                    href="https://app.brightmind.social"
                     class="group px-5 py-2 border border-brand-dark text-brand-dark rounded-full hover:bg-brand-light-bg transition duration-300 ease-in-out btn-raised-hover">
                     <span class="inline-flex items-center">
-                        Log In
+                        Sign in
                     </span>
                 </a>
                 <a href="#pricing"
@@ -169,7 +169,7 @@
                 </a>
             </div>
             <div class="md:hidden">
-                <button class="text-gray-600 hover:text-brand-dark focus:outline-none focus:text-brand-dark"> <svg
+                <button id="mobile-menu-toggle" class="text-gray-600 hover:text-brand-dark focus:outline-none focus:text-brand-dark"> <svg
                         class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -179,6 +179,15 @@
             </div>
         </nav>
     </header>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8 text-xl font-semibold text-brand-dark transition-all duration-300 ease-in-out opacity-0 pointer-events-none">
+        <a href="#features" class="block" onclick="closeMobileMenu()">Features</a>
+        <a href="#pricing" class="block" onclick="closeMobileMenu()">Pricing</a>
+        <a href="#testimonials" class="block" onclick="closeMobileMenu()">Testimonials</a>
+        <a href="https://app.brightmind.social" class="block" onclick="closeMobileMenu()">Sign in</a>
+        <a href="#pricing" class="block bg-brand-primary text-brand-black px-6 py-2 rounded-full btn-raised-hover" onclick="closeMobileMenu()">Start 14-Day Free Trial</a>
+    </div>
 
     <section class="bg-brand-primary text-brand-dark py-20 md:py-32">
         <div class="container mx-auto px-4 text-center">
@@ -508,6 +517,10 @@
     </footer>
 
     <script>
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.remove('opacity-100');
+            document.getElementById('mobile-menu').classList.add('opacity-0', 'pointer-events-none');
+        }
         document.addEventListener('DOMContentLoaded', function () {
             const monthlyToggle = document.getElementById('monthly-toggle');
             const annualToggle = document.getElementById('annual-toggle');
@@ -560,6 +573,22 @@
             animateElements.forEach(element => {
                 observer.observe(element);
             });
+
+
+            // Hamburger menu logic
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuToggle && mobileMenu) {
+                mobileMenuToggle.addEventListener('click', function () {
+                    if (mobileMenu.classList.contains('opacity-0')) {
+                        mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                        mobileMenu.classList.add('opacity-100');
+                    } else {
+                        mobileMenu.classList.remove('opacity-100');
+                        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                    }
+                });
+            }
         });
     </script>
 
